@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright © 2018 Sven Ruppert (sven.ruppert@gmail.com)
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.vaadin.tutorial</groupId>
+  <artifactId>tdd-junit5-02-extensions</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+
+  <packaging>jar</packaging>
+
+  <inceptionYear>2018</inceptionYear>
+  <organization>
+    <name>Vaadin</name>
+    <url>http://www.vaadin.com/</url>
+  </organization>
+  <url>https://github.com/vaadin-learning-center/tdd-junit5-02-extensions</url>
+
+  <scm>
+    <url>https://github.com/vaadin-learning-center/tdd-junit5-02-extensions</url>
+    <connection>
+      scm:git:https://github.com/vaadin-learning-center/tdd-junit5-02-extensions.git
+    </connection>
+    <developerConnection>
+      scm:git:https://github.com/vaadin-learning-center/tdd-junit5-02-extensions.git
+    </developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+  <developers>
+    <developer>
+      <name>Sven Ruppert</name>
+      <email>sven.ruppert@gmail.com</email>
+      <roles>
+        <role>Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+  </developers>
+  <issueManagement>
+    <system>Github</system>
+    <url>
+      https://github.com/vaadin-learning-center/tdd-junit5-02-extensions/issues
+    </url>
+  </issueManagement>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+      <comments>A business-friendly OSS license</comments>
+    </license>
+  </licenses>
+
+  <properties>
+    <!--technical-->
+    <!--<maven.compiler.release>10</maven.compiler.release>-->
+    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>8</maven.compiler.source>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+    <!--RapidPM-->
+    <rapidpm-functional-reactive.version>01.00.00-RPM</rapidpm-functional-reactive.version>
+    <rapidpm-dependencies.version>04.00.10-RPM</rapidpm-dependencies.version>
+    <rapidpm-logger-adapter.version>01.00.00-RPM</rapidpm-logger-adapter.version>
+
+    <!--Vaadin-->
+    <vaadin.version>10.0.10</vaadin.version>
+    <meecrowave.version>1.2.6</meecrowave.version>
+
+    <!--TDD-->
+    <junit.jupiter.version>5.4.0-RC2</junit.jupiter.version>
+    <junit-platform-maven-plugin.version>1.0.0-M5</junit-platform-maven-plugin.version>
+    <jacoco.version>0.8.3</jacoco.version>
+    <webdriverextensions.version>3.1.3</webdriverextensions.version>
+
+    <vaadin-testbench-core.version>6.0.1</vaadin-testbench-core.version>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>vaadin-addons</id>
+      <url>http://maven.vaadin.com/vaadin-addons</url>
+      <!--<url>http://maven.vaadin.com/</url>-->
+    </repository>
+  </repositories>
+
+  <!-- Just to disable any accidental deployment to maven.central -->
+  <distributionManagement>
+    <repository>
+      <id>localhost</id>
+      <url>file://${basedir}/target/repo/</url>
+    </repository>
+    <snapshotRepository>
+      <id>localhost</id>
+      <url>file://${basedir}/target/snapshot-repo/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+
+  <dependencyManagement>
+    <dependencies>
+      <!--Vaadin -->
+      <dependency>
+        <groupId>com.vaadin</groupId>
+        <artifactId>vaadin-bom</artifactId>
+        <version>${vaadin.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.rapidpm</groupId>
+      <artifactId>rapidpm-logger-adapter</artifactId>
+      <version>${rapidpm-logger-adapter.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.rapidpm</groupId>
+      <artifactId>rapidpm-functional-reactive</artifactId>
+      <version>${rapidpm-functional-reactive.version}</version>
+    </dependency>
+
+    <!--Infrastructure-->
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-specs-api</artifactId>
+      <version>${meecrowave.version}</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.meecrowave</groupId>
+      <artifactId>meecrowave-core</artifactId>
+      <version>${meecrowave.version}</version>
+      <scope>compile</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+    </dependency>
+
+
+    <!--Vaadin -->
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-lumo-theme</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-testbench</artifactId>
+      <version>${vaadin.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-server</artifactId>
+        </exclusion>
+      </exclusions>
+      <!--<scope>test</scope>-->
+    </dependency>
+    <dependency>
+      <groupId>com.vaadin</groupId>
+      <artifactId>vaadin-testbench-core</artifactId>
+      <version>${vaadin-testbench-core.version}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.seleniumhq.selenium</groupId>
+          <artifactId>selenium-server</artifactId>
+        </exclusion>
+      </exclusions>
+      <!--<scope>test</scope>-->
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <version>3.1.1</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+      </plugin>
+      <plugin>
+        <groupId>de.sormuras.junit</groupId>
+        <artifactId>junit-platform-maven-plugin</artifactId>
+        <version>${junit-platform-maven-plugin.version}</version>
+        <extensions>true</extensions> <!-- Necessary to execute it in 'test' phase. -->
+
+        <configuration>
+
+          <executor>JAVA</executor>
+          <javaOptions>
+            <additionalOptions>
+              <!--<protools>-Dactivate.vaadin.protools=false</protools>-->
+              <jacoco>${jacoco.java.option}</jacoco>
+            </additionalOptions>
+          </javaOptions>
+
+          <!--<tags>-->
+          <!--<tag>vaadin-protools</tag>-->
+          <!--</tags>-->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <executions>
+          <execution>
+            <id>pre-unit-test</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <propertyName>jacoco.java.option</propertyName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>post-unit-test</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.github.webdriverextensions</groupId>
+        <artifactId>webdriverextensions-maven-plugin</artifactId>
+        <version>3.1.3</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>install-drivers</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <keepDownloadedWebdrivers>true</keepDownloadedWebdrivers>
+          <installationDirectory>_data/webdrivers</installationDirectory>
+          <drivers>
+            <driver>
+              <name>chromedriver</name>
+            </driver>
+          </drivers>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>${jacoco.version}</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <!-- select non-aggregate reports -->
+              <report>report</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
+
+</project>
